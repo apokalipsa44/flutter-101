@@ -21,7 +21,7 @@ flutter:
 
   uses-material-design: true
   assets:
-     - images/kermit.jpg
+     - images/
   #   - images/a_dot_ham.jpeg
 
 
