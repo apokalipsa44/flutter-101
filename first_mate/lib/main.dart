@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,14 +18,49 @@ void main() {
   );
 }
 
-class MuppetPage extends StatelessWidget {
+class MuppetPage extends StatefulWidget {
+  @override
+  _MuppetPageState createState() => _MuppetPageState();
+}
+
+class _MuppetPageState extends State<MuppetPage> {
+  var muppetLeftNumber = 1;
+  var muppetRightNumber = 1;
+
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Expanded(flex: 1, child: Image.asset('images/muppet1.jpg')),
-        Expanded(flex: 1, child: Image.asset('images/muppet2.jpg'))
-      ],
+    return Center(
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            flex: 1,
+            child: FlatButton(
+              onPressed: () {
+                setState(() {
+                  muppetDrawer();
+                });
+              },
+              child: Image.asset('images/muppet$muppetLeftNumber.jpg'),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: FlatButton(
+              onPressed: () {
+                setState(() {
+                  muppetDrawer();
+                });
+              },
+              child: Image.asset('images/muppet$muppetRightNumber.jpg'),
+            ),
+          )
+        ],
+      ),
     );
+  }
+
+  void muppetDrawer() {
+    muppetLeftNumber = Random().nextInt(6) + 1;
+    muppetRightNumber = Random().nextInt(6) + 1;
   }
 }
