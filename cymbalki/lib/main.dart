@@ -1,3 +1,4 @@
+import 'package:audioplayers/audio_cache.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,7 +11,15 @@ class Cymbalki extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         body: SafeArea(
-          child: Container(),
+          child: Container(
+            child: FlatButton(
+              onPressed: () {
+                final audioPlayer = AudioCache();
+                audioPlayer.play('note1.wav');
+              },
+              child: Text('play'),
+            ),
+          ),
         ),
       ),
     );
