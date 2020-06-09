@@ -5,22 +5,6 @@ void main() {
   runApp(Cymbalki());
 }
 
-void playNote(int noteNumber) {
-  final audioPlayer = AudioCache();
-  audioPlayer.play('note$noteNumber.wav');
-}
-
-Expanded pianoKey(int noteNumber, Color keyColor) {
-  return Expanded(
-    child: FlatButton(
-      color: keyColor,
-      onPressed: () {
-        playNote(noteNumber);
-      },
-    ),
-  );
-}
-
 class Cymbalki extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -40,6 +24,22 @@ class Cymbalki extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  void playNote(int noteNumber) {
+    final audioPlayer = AudioCache();
+    audioPlayer.play('note$noteNumber.wav');
+  }
+
+  Expanded pianoKey(int noteNumber, Color keyColor) {
+    return Expanded(
+      child: FlatButton(
+        color: keyColor,
+        onPressed: () {
+          playNote(noteNumber);
+        },
       ),
     );
   }

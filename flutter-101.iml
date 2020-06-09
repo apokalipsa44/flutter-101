@@ -6,6 +6,9 @@
       <excludeFolder url="file://$MODULE_DIR$/cymbalki/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/cymbalki/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/cymbalki/build" />
+      <excludeFolder url="file://$MODULE_DIR$/quizz/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/quizz/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/quizz/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
