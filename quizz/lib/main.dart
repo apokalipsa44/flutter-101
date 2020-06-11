@@ -7,17 +7,17 @@ void main() {
 class QuizApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-   return MaterialApp(
-     home: Scaffold(
-       backgroundColor: Colors.black26,
-       body: SafeArea(
-         child: Padding(
-           padding: EdgeInsets.all(16.0),
-           child: QuizPage(),
-         ),
-       ),
-     ),
-   )
+    return MaterialApp(
+      home: Scaffold(
+        backgroundColor: Colors.black26,
+        body: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: QuizPage(),
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -29,9 +29,17 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        Expanded(
+          flex: 5,
+          child: Padding(padding: EdgeInsets.all(10.0),
+            child: Center(
+              child: Text("ssij", textAlign: TextAlign.center,),
+            ),),),
+      ],
+    )
   }
-
-
 }
