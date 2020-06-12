@@ -36,6 +36,7 @@ class Cymbalki extends StatelessWidget {
   Expanded pianoKey(int noteNumber, Color keyColor) {
     return Expanded(
       child: FlatButton(
+        child: Text(''),
         color: keyColor,
         onPressed: () {
           playNote(noteNumber);
