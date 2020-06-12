@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quizz/QuizService.dart';
 
 void main() {
   runApp(QuizApp());
@@ -27,59 +28,82 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  int questionNumber = 0;
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Expanded(
-            flex: 5,
-            child: Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Center(
-                child: Text(
-                  "ssij",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white),
+    if (questionNumber < QuizService().quizes.length) {
+      return Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Expanded(
+              flex: 5,
+              child: Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Center(
+                  child: Text(
+                    QuizService().quizes[questionNumber].question,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ),
             ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: FlatButton(
+                  onPressed: () {
+                    answerCheck(questionNumber, true);
+                  },
+                  color: Colors.green,
+                  child: Text(
+                    'True',
+                    style: TextStyle(color: Colors.white, fontSize: 20.0),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: FlatButton(
+                  onPressed: () {
+                    answerCheck(questionNumber, false);
+                  },
+                  color: Colors.red,
+                  child: Text(
+                    'False',
+                    style: TextStyle(color: Colors.white, fontSize: 20.0),
+                  ),
+                ),
+              ),
+            )
+          ]);
+    } else {
+      return Padding(
+        padding: EdgeInsets.all(10.0),
+        child: Center(
+          child: Text(
+            "Quiz Over",
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.lime, fontSize: 30.0),
           ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: FlatButton(
-                onPressed: () {
-                  answerCheck();
-                },
-                color: Colors.green,
-                child: Text(
-                  'True',
-                  style: TextStyle(color: Colors.white, fontSize: 20.0),
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: FlatButton(
-                onPressed: () {
-                  answerCheck();
-                },
-                color: Colors.red,
-                child: Text(
-                  'False',
-                  style: TextStyle(color: Colors.white, fontSize: 20.0),
-                ),
-              ),
-            ),
-          )
-        ]);
+        ),
+      );
+    }
   }
 
-  answerCheck() {
-    print('answer');
+  answerCheck(int questionNumber, bool playerAnswer) {
+    bool answer = QuizService().quizes[questionNumber].answer;
+    if (answer == playerAnswer) {
+      print('awsome');
+    } else {
+      print("shit");
+    }
+    setState(() {
+      this.questionNumber++;
+    });
   }
 }
