@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quizz/QuizService.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 void main() {
   runApp(QuizApp());
@@ -82,6 +83,7 @@ class _QuizPageState extends State<QuizPage> {
             )
           ]);
     } else {
+      showAlert();
       return Padding(
         padding: EdgeInsets.all(10.0),
         child: Center(
@@ -104,6 +106,17 @@ class _QuizPageState extends State<QuizPage> {
     }
     setState(() {
       this.questionNumber++;
+    });
+  }
+
+  void showAlert() {
+    print('alert');
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Alert(
+        context: context,
+        title: 'Finished!',
+        desc: 'You\'ve reached the end of the quiz.',
+      ).show();
     });
   }
 }
