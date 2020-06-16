@@ -30,12 +30,13 @@ class _InputPageState extends State<InputPage> {
       body: Center(
         child: Text('test text'),
       ),
-      floatingActionButton: Theme(
-        data: ThemeData(accentColor: Colors.deepOrange),
-        child: FloatingActionButton(
-          child: Icon(Icons.attach_money),
-        ),
-      ),
     );
   }
 }
+
+//floatingActionButton: Theme(
+//data: ThemeData(accentColor: Colors.deepOrange),
+//child: FloatingActionButton(
+//child: Icon(Icons.attach_money),
+//),
+//),
