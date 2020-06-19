@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'input_page.dart';
+import 'constants.dart';
 
 void main() {
   runApp(Bmi());
@@ -12,25 +14,6 @@ class Bmi extends StatelessWidget {
             primaryColor: Color(0xff0a0e21),
             scaffoldBackgroundColor: Color(0xff0a0e21)),
         home: InputPage());
-  }
-}
-
-class InputPage extends StatefulWidget {
-  @override
-  _InputPageState createState() => _InputPageState();
-}
-
-class _InputPageState extends State<InputPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('BMI Super app'),
-      ),
-      body: Center(
-        child: Text('test text'),
-      ),
-    );
   }
 }
 
