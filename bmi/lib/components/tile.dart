@@ -13,4 +13,6 @@ class Tile extends StatelessWidget {
       ),
     );
   }
+
+  Tile();
 }
