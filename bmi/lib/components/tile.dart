@@ -6,17 +6,18 @@ class Tile extends StatelessWidget {
   final Widget widgetChild;
   final Function onPress;
 
-  const Tile({Key key, this.color, this.widgetChild, this.onPress})
-      : super(key: key);
+  const Tile({@required this.color, this.widgetChild, this.onPress});
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-        margin: EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-            color: kActiveCardColour,
-            borderRadius: BorderRadius.circular(10.0)),
+      child: GestureDetector(
+        onTap: onPress,
+        child: Container(
+          margin: EdgeInsets.all(8.0),
+          decoration: BoxDecoration(
+              color: color, borderRadius: BorderRadius.circular(10.0)),
+        ),
       ),
     );
   }
