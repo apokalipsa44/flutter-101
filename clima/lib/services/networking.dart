@@ -1,4 +1,3 @@
-import 'dart:html' as http;
 import 'package:flutter/material.dart';
 
 class NetworkService extends StatefulWidget {

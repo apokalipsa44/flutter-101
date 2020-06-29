@@ -1,3 +1,7 @@
+import 'package:http/http.dart' as http;
+import 'package:clima/utilities/constants.dart';
+import 'dart:convert' as convert;
+
 class WeatherModel {
   String getWeatherIcon(int condition) {
     if (condition < 300) {
@@ -28,6 +32,18 @@ class WeatherModel {
       return 'You\'ll need 🧣 and 🧤';
     } else {
       return 'Bring a 🧥 just in case';
+    }
+  }
+
+  void getWeather() async {
+    var url = kWeatherUrl + kApi_Key;
+
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      var jsonResponse = convert.jsonDecode(response.body);
+      print(jsonResponse);
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
     }
   }
 }

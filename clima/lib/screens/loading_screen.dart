@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:clima/services/location.dart';
+import 'package:clima/services/weather.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -9,6 +10,7 @@ class LoadingScreen extends StatefulWidget {
 class _LoadingScreenState extends State<LoadingScreen> {
   @override
   Widget build(BuildContext context) {
+    getWeather();
     return Scaffold(
       body: Center(
         child: RaisedButton(
@@ -23,5 +25,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void initState() {
     LocationService locationService = LocationService();
     locationService.getLocation();
+  }
+
+  void getWeather() {
+    WeatherModel weatherModel = WeatherModel();
+    weatherModel.getWeather();
   }
 }
