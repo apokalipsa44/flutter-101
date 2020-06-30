@@ -5,10 +5,10 @@ class LocationService extends StatefulWidget {
   @override
   _LocationServiceState createState() => _LocationServiceState();
 
-  void getLocation() async {
+  Future getLocation() async {
     Position position = await Geolocator()
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
-    print(position);
+    return position;
   }
 }
 

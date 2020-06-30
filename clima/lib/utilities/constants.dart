@@ -19,7 +19,10 @@ const kConditionTextStyle = TextStyle(
   fontSize: 100.0,
 );
 
+//const double latitude;
+//const double longitude;
+
 const String kApi_Key = 'dd3f8fd8e780c7e5d9b7286faac1d873';
 
 const String kWeatherUrl =
-    'https://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=';
+    'https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&appid=';
