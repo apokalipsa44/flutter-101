@@ -38,7 +38,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   void getWeather(double longitude, double latitude) {
-    WeatherModel weatherModel = WeatherModel();
-    weatherModel.getWeather(longitude, latitude);
+    WeatherModel weatherModel = WeatherModel(longitude, latitude);
+    var weather = weatherModel.getWeather();
   }
 }

@@ -7,7 +7,7 @@ class WeatherModel {
   double latitude;
   double longitude;
 
-//  WeatherModel(this.latitude, this.longitude);
+  WeatherModel(this.longitude, this.latitude);
 
   String getWeatherIcon(int condition) {
     if (condition < 300) {
@@ -41,7 +41,7 @@ class WeatherModel {
     }
   }
 
-  void getWeather(double longitude, double latitude) async {
+  Future getWeather() async {
     String latitudeUrl = latitude.toString();
     String longitudeUrl = longitude.toString();
     String url = sprintf(kWeatherUrl, [latitudeUrl, longitudeUrl]) + kApi_Key;
@@ -50,8 +50,10 @@ class WeatherModel {
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
       print(jsonResponse);
+      return jsonResponse;
     } else {
       print('Request failed with status: ${response.statusCode}.');
+      return response;
     }
   }
 }
