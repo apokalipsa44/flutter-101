@@ -44,7 +44,9 @@ class WeatherModel {
   Future getWeather() async {
     String latitudeUrl = latitude.toString();
     String longitudeUrl = longitude.toString();
-    String url = sprintf(kWeatherUrl, [latitudeUrl, longitudeUrl]) + kApi_Key;
+    String url = sprintf(kWeatherUrl, [latitudeUrl, longitudeUrl]) +
+        kApi_Key +
+        '&units=metric';
 
     var response = await http.get(url);
     if (response.statusCode == 200) {
@@ -53,7 +55,7 @@ class WeatherModel {
       return jsonResponse;
     } else {
       print('Request failed with status: ${response.statusCode}.');
-      return response;
+//      return response.statusCode;
     }
   }
 }
