@@ -1,3 +1,4 @@
+import 'package:clima/services/weather.dart';
 import 'package:flutter/material.dart';
 import 'package:clima/utilities/constants.dart';
 import 'dart:convert' as convert;
@@ -13,12 +14,14 @@ class LocationScreen extends StatefulWidget {
 
 class _LocationScreenState extends State<LocationScreen> {
   int temperature;
+  String cityName;
+  String weatherIcon;
+  String weatherDescription;
+
+  WeatherModel weatherModel = WeatherModel.defaultConstructor();
 
   @override
   Widget build(BuildContext context) {
-//    var weatherString = widget.weather.toString();
-//    var weatherJson = convert.jsonDecode(weatherString);
-//    print(weatherJson);
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -60,11 +63,11 @@ class _LocationScreenState extends State<LocationScreen> {
                   children: <Widget>[
                     Text(
 //                      main.temp
-                      '${temperature}°',
+                      '$temperature°',
                       style: kTempTextStyle,
                     ),
                     Text(
-                      '☀️',
+                      weatherIcon,
                       style: kConditionTextStyle,
                     ),
                   ],
@@ -73,7 +76,7 @@ class _LocationScreenState extends State<LocationScreen> {
               Padding(
                 padding: EdgeInsets.only(right: 15.0),
                 child: Text(
-                  "It's 🍦 time in San Francisco!",
+                  "$weatherDescription in $cityName",
                   textAlign: TextAlign.right,
                   style: kMessageTextStyle,
                 ),
@@ -91,7 +94,14 @@ class _LocationScreenState extends State<LocationScreen> {
   }
 
   void updateUI(weatherData) {
-    double tempDouble = weatherData['main']['temp'];
-    temperature = tempDouble.floor();
+    setState(() {
+      double tempDouble = weatherData['main']['temp'];
+      temperature = tempDouble.floor();
+      int condition = weatherData['weather'][0]['id'];
+      cityName = weatherData['name'];
+
+      weatherIcon = weatherModel.getWeatherIcon(condition);
+      weatherDescription = weatherModel.getMessage(temperature);
+    });
   }
 }

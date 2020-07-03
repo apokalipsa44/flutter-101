@@ -58,4 +58,6 @@ class WeatherModel {
 //      return response.statusCode;
     }
   }
+
+  WeatherModel.defaultConstructor();
 }
