@@ -21,6 +21,9 @@
       <excludeFolder url="file://$MODULE_DIR$/bmi/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/bmi/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/bmi/build" />
+      <excludeFolder url="file://$MODULE_DIR$/chat_mate/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/chat_mate/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/chat_mate/build" />
       <excludeFolder url="file://$MODULE_DIR$/clima/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/clima/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/clima/build" />

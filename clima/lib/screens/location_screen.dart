@@ -97,8 +97,11 @@ class _LocationScreenState extends State<LocationScreen> {
   }
 
   void updateUI(weatherData) {
+    if (weatherData == null) {
+      print("no weather data");
+    }
     setState(() {
-      double tempDouble = weatherData['main']['temp'];
+      int tempDouble = weatherData['main']['temp'];
       temperature = tempDouble.floor();
       int condition = weatherData['weather'][0]['id'];
       cityName = weatherData['name'];
