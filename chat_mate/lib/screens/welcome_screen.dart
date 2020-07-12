@@ -16,16 +16,16 @@ class _WelcomeScreenState extends State<WelcomeScreen>
       vsync: this,
     );
     Animation curvedAnimation =
-        CurvedAnimation(parent: controller, curve: Curves.bounceIn);
+        CurvedAnimation(parent: controller, curve: Curves.decelerate);
 
-    setState(() {
-      // nothing here - just to mark controller as dirty
-    });
     controller.forward();
 
-//    controller.addListener(() {
-//      print(controller.value);
-//    });
+    controller.addListener(() {
+      setState(() {
+        // nothing here - just to mark controller as dirty
+      });
+      print(controller.value);
+    });
   }
 
   @override
@@ -44,13 +44,13 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   tag: 'flash',
                   child: Container(
                     child: Image.asset('images/logo.png'),
-                    height: 60.0,
+                    height: controller.value * 100,
                   ),
                 ),
                 Text(
                   'Flash Chat',
                   style: TextStyle(
-                    fontSize: 45.0,
+                    fontSize: 30.0,
                     fontWeight: FontWeight.w900,
                   ),
                 ),
