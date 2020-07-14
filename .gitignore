@@ -159,3 +159,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij,flutter,windows
+/chat_mate/android/app/google-services.json

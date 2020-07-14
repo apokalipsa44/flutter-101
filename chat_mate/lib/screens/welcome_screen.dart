@@ -8,6 +8,7 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
+  Animation curvedAnimation;
 
   @override
   void initState() {
@@ -15,7 +16,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
       duration: Duration(seconds: 1),
       vsync: this,
     );
-    Animation curvedAnimation =
+    curvedAnimation =
         CurvedAnimation(parent: controller, curve: Curves.decelerate);
 
     controller.forward();
@@ -24,8 +25,13 @@ class _WelcomeScreenState extends State<WelcomeScreen>
       setState(() {
         // nothing here - just to mark controller as dirty
       });
-      print(controller.value);
+//      print(controller.value);
     });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
   }
 
   @override
