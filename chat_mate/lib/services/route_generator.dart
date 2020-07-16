@@ -13,7 +13,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => WelcomeScreen());
       case '/login':
         return MaterialPageRoute(builder: (_) => LoginScreen());
-      case 'chat':
+      case '/chat':
         return MaterialPageRoute(builder: (_) => ChatScreen());
       case '/register':
         return MaterialPageRoute(builder: (_) => RegistrationScreen());
