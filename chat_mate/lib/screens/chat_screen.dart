@@ -30,7 +30,7 @@ class _ChatScreenState extends State<ChatScreen> {
     super.initState();
     getCurrentUser();
 //    getMessages();
-    messagesAsStream();
+//    messagesAsStream();
   }
 
 //  void getMessages() async {
@@ -42,14 +42,14 @@ class _ChatScreenState extends State<ChatScreen> {
 //    }
 //  }
 
-  void messagesAsStream() async {
-    await for (var messages in _firestore.collection('messages').snapshots()) {
-      print('====================');
-      for (var message in messages.documents) {
-        print(message.data);
-      }
-    }
-  }
+//  void messagesAsStream() async {
+//    await for (var messages in _firestore.collection('messages').snapshots()) {
+//      print('====================');
+//      for (var message in messages.documents) {
+//        print(message.data);
+//      }
+//    }
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,38 +68,65 @@ class _ChatScreenState extends State<ChatScreen> {
         backgroundColor: Colors.lightBlueAccent,
       ),
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Container(
-              decoration: kMessageContainerDecoration,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    child: TextField(
-                      onChanged: (value) {
-                        messageText = value;
-                      },
-                      decoration: kMessageTextFieldDecoration,
-                    ),
-                  ),
-                  FlatButton(
-                    onPressed: () {
-                      print(messageText);
-                      _firestore.collection('messages').add(
-                          {'text': messageText, 'sender': loggedUser.email});
-                    },
-                    child: Text(
-                      'Send',
-                      style: kSendButtonTextStyle,
-                    ),
-                  ),
-                ],
+        child: Container(
+          color: Color.fromARGB(255, 200, 223, 220),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              StreamBuilder<QuerySnapshot>(
+                stream: _firestore.collection('messages').snapshots(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        backgroundColor: Colors.deepOrange,
+                      ),
+                    );
+                  }
+                  final messages = snapshot.data.documents;
+                  List<Text> messageWidgets = [];
+                  for (var message in messages) {
+                    var messageText = message.data['text'];
+                    var messageSender = message.data['sender'];
+                    var messageWidget =
+                        Text('$messageText from $messageSender');
+                    messageWidgets.add(messageWidget);
+                  }
+                  return Column(
+                    children: messageWidgets,
+                  );
+                },
               ),
-            ),
-          ],
+              Container(
+                decoration: kMessageContainerDecoration,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(
+                      child: TextField(
+                        onChanged: (value) {
+                          messageText = value;
+                        },
+                        decoration: kMessageTextFieldDecoration,
+                      ),
+                    ),
+                    FlatButton(
+                      onPressed: () {
+                        print(messageText);
+                        _firestore.collection('messages').add(
+                            {'text': messageText, 'sender': loggedUser.email});
+                      },
+                      child: Text(
+                        'Send',
+                        style: kSendButtonTextStyle,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
