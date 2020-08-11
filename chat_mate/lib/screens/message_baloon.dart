@@ -1,27 +1,43 @@
-import 'package:chat_mate/services/authorization_service.dart';
 import 'package:flutter/material.dart';
 
-class MessageBaloon extends StatefulWidget {
-  @override
-  _MessageBaloonState createState() => _MessageBaloonState();
-}
+class MessageBaloon extends StatelessWidget {
+  String messageText;
+  String messageSender;
 
-class _MessageBaloonState extends State<MessageBaloon> {
-  final AuthorizationService authorizationService = AuthorizationService();
-
-  @override
-  void initState() {
-    authorizationService.getCurrentUser();
-  }
-
-  void printSome() {
-    print('=======');
-    print(authorizationService.loggedUser.email);
-  }
+  MessageBaloon(this.messageText, this.messageSender);
 
   @override
   Widget build(BuildContext context) {
-    printSome();
-    return Container();
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          Padding(
+            padding:
+                const EdgeInsets.only(left: 0, top: 0, bottom: 3, right: 12),
+            child: Text(
+              messageSender,
+              style: TextStyle(
+                fontSize: 15,
+              ),
+            ),
+          ),
+          Material(
+            color: Colors.lightBlue,
+            elevation: 8,
+            borderRadius: BorderRadius.circular(8),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+              child: Text(
+                '$messageText from $messageSender',
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+    ;
   }
 }

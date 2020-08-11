@@ -58,7 +58,7 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
       body: SafeArea(
         child: Container(
-          color: Color.fromARGB(255, 200, 223, 220),
+          color: Color.fromARGB(255, 222, 255, 255),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -76,14 +76,12 @@ class _ChatScreenState extends State<ChatScreen> {
                     );
                   }
                   final messages = snapshot.data.documents;
-                  List<Text> messageWidgets = [];
+                  List<MessageBaloon> messageWidgets = [];
                   for (var message in messages) {
-                    var messageText = message.data['text'];
-                    var messageSender = message.data['sender'];
-                    var messageWidget = Text(
-                      '$messageText from $messageSender',
-                      style: TextStyle(fontSize: 20),
-                    );
+                    String messageText = message.data['text'];
+                    String messageSender = message.data['sender'];
+                    var messageWidget = MessageBaloon(messageText = messageText,
+                        messageSender = messageSender);
                     messageWidgets.add(messageWidget);
                   }
                   return Expanded(
@@ -122,7 +120,6 @@ class _ChatScreenState extends State<ChatScreen> {
                         style: kSendButtonTextStyle,
                       ),
                     ),
-                    MessageBaloon(),
                   ],
                 ),
               ),
