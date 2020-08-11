@@ -11,7 +11,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final authorizationService = AuthorizationService();
-
+  final messageTextController = TextEditingController();
   String messageText;
 
   @override
@@ -80,8 +80,11 @@ class _ChatScreenState extends State<ChatScreen> {
                   for (var message in messages) {
                     String messageText = message.data['text'];
                     String messageSender = message.data['sender'];
-                    var messageWidget = MessageBaloon(messageText = messageText,
-                        messageSender = messageSender);
+                    String loggedUser = authorizationService.loggedUser.email;
+                    var messageWidget = MessageBaloon(
+                        messageText: messageText,
+                        messageSender: messageSender,
+                        isMe: messageSender == loggedUser);
                     messageWidgets.add(messageWidget);
                   }
                   return Expanded(
@@ -98,6 +101,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   children: <Widget>[
                     Expanded(
                       child: TextField(
+                        controller: messageTextController,
                         onChanged: (value) {
                           messageText = value;
                         },
@@ -106,6 +110,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                     FlatButton(
                       onPressed: () {
+                        messageTextController.clear();
                         print(
                             '$messageText ========${authorizationService.loggedUser.email}');
                         authorizationService.firestore

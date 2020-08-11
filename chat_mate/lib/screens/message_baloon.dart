@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
 class MessageBaloon extends StatelessWidget {
-  String messageText;
-  String messageSender;
+  final String messageText;
+  final String messageSender;
+  final bool isMe;
 
-  MessageBaloon(this.messageText, this.messageSender);
+  MessageBaloon({this.messageText, this.messageSender, this.isMe});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment:
+            isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
             padding:
@@ -24,7 +26,7 @@ class MessageBaloon extends StatelessWidget {
             ),
           ),
           Material(
-            color: Colors.lightBlue,
+            color: isMe ? Colors.lightBlue : Colors.white,
             elevation: 8,
             borderRadius: BorderRadius.circular(8),
             child: Padding(
