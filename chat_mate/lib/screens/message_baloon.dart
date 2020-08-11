@@ -26,13 +26,13 @@ class MessageBaloon extends StatelessWidget {
             ),
           ),
           Material(
-            color: isMe ? Colors.lightBlue : Colors.white,
+            color: isMe ? Colors.lightBlue : Colors.white70,
             elevation: 8,
             borderRadius: BorderRadius.circular(8),
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
               child: Text(
-                '$messageText from $messageSender',
+                messageText,
                 style: TextStyle(fontSize: 20),
               ),
             ),
@@ -40,6 +40,5 @@ class MessageBaloon extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 }

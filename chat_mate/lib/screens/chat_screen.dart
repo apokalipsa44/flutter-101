@@ -65,7 +65,7 @@ class _ChatScreenState extends State<ChatScreen> {
             children: <Widget>[
               StreamBuilder<QuerySnapshot>(
                 stream: authorizationService.firestore
-                    .collection('messages')
+                    .collection("messages")
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
@@ -76,6 +76,9 @@ class _ChatScreenState extends State<ChatScreen> {
                     );
                   }
                   final messages = snapshot.data.documents;
+                  messages.sort((a, b) => b.data['timestamp']
+                      .toString()
+                      .compareTo(a.data['timestamp'].toString()));
                   List<MessageBaloon> messageWidgets = [];
                   for (var message in messages) {
                     String messageText = message.data['text'];
@@ -89,6 +92,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   }
                   return Expanded(
                     child: ListView(
+                      reverse: true,
                       children: messageWidgets,
                     ),
                   );
@@ -101,6 +105,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   children: <Widget>[
                     Expanded(
                       child: TextField(
+                        style: TextStyle(color: Colors.black54),
                         controller: messageTextController,
                         onChanged: (value) {
                           messageText = value;
@@ -110,14 +115,14 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                     FlatButton(
                       onPressed: () {
+                        DateTime timestamp = DateTime.now();
                         messageTextController.clear();
-                        print(
-                            '$messageText ========${authorizationService.loggedUser.email}');
                         authorizationService.firestore
                             .collection('messages')
                             .add({
                           'text': messageText,
-                          'sender': authorizationService.loggedUser.email
+                          'sender': authorizationService.loggedUser.email,
+                          'timestamp': timestamp
                         });
                       },
                       child: Text(
