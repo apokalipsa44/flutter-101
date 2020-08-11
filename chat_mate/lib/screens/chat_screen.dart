@@ -1,4 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:chat_mate/screens/message_baloon.dart';
+import 'package:chat_mate/services/authorization_service.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_mate/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,26 +10,14 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  final _auth = FirebaseAuth.instance;
-  final _firestore = Firestore.instance;
-  FirebaseUser loggedUser;
-  String messageText;
+  final authorizationService = AuthorizationService();
 
-  void getCurrentUser() async {
-    try {
-      final currentUser = await _auth.currentUser();
-      if (currentUser != null) {
-        loggedUser = currentUser;
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+  String messageText;
 
   @override
   void initState() {
     super.initState();
-    getCurrentUser();
+    authorizationService.getCurrentUser();
 //    getMessages();
 //    messagesAsStream();
   }
@@ -60,7 +49,7 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
               icon: Icon(Icons.close),
               onPressed: () {
-                _auth.signOut();
+                authorizationService.auth.signOut();
                 Navigator.pop(context);
               }),
         ],
@@ -75,7 +64,9 @@ class _ChatScreenState extends State<ChatScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               StreamBuilder<QuerySnapshot>(
-                stream: _firestore.collection('messages').snapshots(),
+                stream: authorizationService.firestore
+                    .collection('messages')
+                    .snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
                     return Center(
@@ -89,12 +80,16 @@ class _ChatScreenState extends State<ChatScreen> {
                   for (var message in messages) {
                     var messageText = message.data['text'];
                     var messageSender = message.data['sender'];
-                    var messageWidget =
-                        Text('$messageText from $messageSender');
+                    var messageWidget = Text(
+                      '$messageText from $messageSender',
+                      style: TextStyle(fontSize: 20),
+                    );
                     messageWidgets.add(messageWidget);
                   }
-                  return Column(
-                    children: messageWidgets,
+                  return Expanded(
+                    child: ListView(
+                      children: messageWidgets,
+                    ),
                   );
                 },
               ),
@@ -113,15 +108,21 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                     FlatButton(
                       onPressed: () {
-                        print(messageText);
-                        _firestore.collection('messages').add(
-                            {'text': messageText, 'sender': loggedUser.email});
+                        print(
+                            '$messageText ========${authorizationService.loggedUser.email}');
+                        authorizationService.firestore
+                            .collection('messages')
+                            .add({
+                          'text': messageText,
+                          'sender': authorizationService.loggedUser.email
+                        });
                       },
                       child: Text(
                         'Send',
                         style: kSendButtonTextStyle,
                       ),
                     ),
+                    MessageBaloon(),
                   ],
                 ),
               ),
