@@ -1,28 +1,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_list/components/TodosContainer.dart';
+import 'package:todo_list/components/AppIcon.dart';
+import 'package:todo_list/components/TodoList.dart';
 
 class TaskScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.lime,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: FloatingActionButton(
+          backgroundColor: Colors.lime,
+          focusColor: Colors.red,
+          highlightElevation: 10,
+          elevation: 5,
+          child: Icon(
+            Icons.add,
+            size: 40,
+          ),
+        ),
+      ),
       body: Container(
         padding: EdgeInsets.only(left: 12, top: 60, right: 12, bottom: 12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: CircleAvatar(
-                radius: 40,
-                backgroundColor: Colors.white,
-                child: Icon(
-                  Icons.list,
-                  color: Colors.lime,
-                  size: 60,
-                ),
-              ),
-            ),
+            AppIcon(),
             Padding(
               padding: const EdgeInsets.only(left: 8, top: 15),
               child: Text(
@@ -41,21 +46,7 @@ class TaskScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 18, color: Colors.white),
               ),
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 20, bottom: 0),
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10),
-                        bottomLeft: Radius.circular(2),
-                        bottomRight: Radius.circular(2),
-                      )),
-                ),
-              ),
-            )
+            TodosContainer()
           ],
         ),
       ),
