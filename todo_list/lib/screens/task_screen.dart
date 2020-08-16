@@ -24,8 +24,11 @@ class TaskScreen extends StatelessWidget {
             Icons.add,
             size: 40,
           ),
-          onPressed: () =>
-              showModalBottomSheet(context: context, builder: buildBottomSheet),
+          onPressed: () => showModalBottomSheet(
+            isScrollControlled: true,
+            context: context,
+            builder: buildBottomSheet,
+          ),
         ),
       ),
       body: Container(
