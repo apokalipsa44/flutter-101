@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_list/components/TodosContainer.dart';
 import 'package:todo_list/components/AppIcon.dart';
+import 'package:todo_list/screens/bottom_sheet.dart';
 
 class TaskScreen extends StatelessWidget {
   Widget buildBottomSheet(BuildContext context) {
-    return Container();
+    return BottomSheetAddTask();
   }
 
   @override
