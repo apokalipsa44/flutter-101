@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/components/TodoTile.dart';
 
 class TaskList extends StatelessWidget {
   const TaskList({
@@ -9,23 +10,12 @@ class TaskList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
-        ListTile(
-          title: Text('first task'),
-          trailing: Checkbox(
-            value: false,
-          ),
+        TodoTile(todo: 'first task'),
+        TodoTile(
+          todo: 'second task',
         ),
-        ListTile(
-          title: Text('second task'),
-          trailing: Checkbox(
-            value: false,
-          ),
-        ),
-        ListTile(
-          title: Text('next task'),
-          trailing: Checkbox(
-            value: false,
-          ),
+        TodoTile(
+          todo: 'third task',
         )
       ],
     );
